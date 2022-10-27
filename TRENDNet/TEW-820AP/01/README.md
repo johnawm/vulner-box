@@ -39,7 +39,7 @@ To reproduce the vulnerability, the following steps can be followed:
 Start frimware through QEMU system or other methods (real device)
 
 1. Use the default username and password to login web.
-2. Execute the poc script POC_for_formNewSchedule.py script as follows:
+2. Execute the poc script POC_for_formNewSchedule.py as follows:
 
 ```bash
 python3 POC_for_formNewSchedule.py 192.168.1.1

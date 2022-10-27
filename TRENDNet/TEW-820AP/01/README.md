@@ -1,6 +1,6 @@
 # TRENDNet AP buffer overflow vulnerabilities
 
-![image-20221027101724040](./image/image-20221027101724040.png)
+![image-20221027101724040](../image-20221027101724040.png)
 
 ## Overview
 
@@ -14,11 +14,9 @@
 
 ## Description
 
-TrendNet Wireless AC Easy-Upgrader TEW-820AP (Version v1.0R) is vulnerable to buffer overflow in handling http packet in firmware version 1.01.B01 which may result in remote code execution or denial of service. These issues are in the binary boa which resides in /bin folder which is responsible for serving http connection received by the device.
-
 ### 1. Vulnerability Details
 
-A stack overflow vulnerability exists in processing the post request “/boafrm/formNewSchedule”. The problem arises in processing “submit-url” parameter which could be arbitrarily long. The value of this parameter is copied onto stack memory without any bounds check by "sprintf" function (as shown at line 20 of Figure B) which could lead to a buffer overflow. The attackers can construct a payload to carry out arbitrary code attacks.
+A stack overflow vulnerability exists in TrendNet Wireless AC Easy-Upgrader TEW-820AP (Version v1.0R, firmware version 1.01.B01) which may result in remote code execution or denial of service. The issue exists in the binary "boa" which resides in "/bin folder", and the binary is responsible for serving http connection received by the device. While processing the post reuqest “/boafrm/formNewSchedule”, the value of “submit-url” parameter which can be arbitrarily long is copied onto stack memory by "sprintf" function (as shown at line 20 of Figure B), and could lead to a buffer overflow. The attackers can construct a payload to carry out arbitrary code attacks.
 
 
 
@@ -36,10 +34,9 @@ Figure B: The decompiled code of function send_redirect_perm.
 
 To reproduce the vulnerability, the following steps can be followed:
 
-Start frimware through QEMU system or other methods (real device)
-
-1. Use the default username and password to login web.
-2. Execute the poc script POC_for_formNewSchedule.py as follows:
+1. Start frimware through QEMU system or other methods (real device)
+2. Use the default username and password to login web.
+3. Execute the poc script POC_for_formNewSchedule.py as follows:
 
 ```bash
 python3 POC_for_formNewSchedule.py 192.168.1.1
